@@ -57,9 +57,12 @@ st.write(x, 'squared is', x * x)
 
 import pandas as pd
 df = pd.DataFrame({
-  'first column': [10, 20, 30, 40],
+  'first column': [60, 50, 30, 40],
   'second column': [10, 20, 30, 40],
-  'third column': [100,400,900,1600]
+  'third column': [600,1000,900,1600]
 })
 
 df
+
+number = st.slider("Pick a number: ", min_value=1, max_value=100)
+st.text("Your age is " + str(number))
