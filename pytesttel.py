@@ -5,13 +5,14 @@ bot= telebot.TeleBot(bott)
 #-------------------------------------------------------------------------
 @bot.message_handler(content_types=['new_chat_members'])
 def welcome(m):
-    bot.reply_to(m,f"کاربر{m.from_user.id}\n به گروه خوش آمدید")
+    bot.reply_to(m,f"کاربر {m.from_user.first_name}\n به گروه خوش آمدید")
 @bot.chat_join_request_handler(func=lambda r:True)
 def gabool(r):
     bot.approve_chat_join_request(r.chat.id,r.from_user.id)
-    bot.send_message(r.chat.id,f"کاربر {r.from_user.first_name}\n در گروه پذیرفته شد")
-
+    bot.send_message(r.chat.id,f"کاربر {r.from_user.id}\n در گروه پذیرفته شد")
+    #bot.decline_chat_join_request()
 bot.polling(timeout=120)
+
 ##import time
 ##from telebot import types
 ##fp=open("C:/Users/POURALI PC CENTER/Downloads/R (1).jpg",'rb')
