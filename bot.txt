@@ -1,1 +1,2 @@
 @bot.message_handler(content_types=['photo','text','audio','video','docuoment','location','contact'])
+	bot.decline_chat_join_request(r.chat.id,r.from_user.id)
