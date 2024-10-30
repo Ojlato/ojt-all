@@ -72,6 +72,37 @@ def ban(m):
 def unban(m):
     bot.unban_chat_member(m.chat.id,m.reply_to_message.from_user.id)
     bot.reply_to(m,f"کاربر {m.chat.id,m.reply_to_message.from_user.id} حذف بن شد!")
-
+#-------------------------------------------------------------------------
+@bot.message_handler(func=lambda m:m.text=="سکوت")
+def restrict(m):
+    bot.restrict_chat_member(
+        m.chat.id,
+        m.reply_to_message.from_user.id,
+        can_add_web_page_previews=False,
+        can_change_info=False,
+        can_invite_users=False,
+        can_pin_messages=False,
+        can_send_media_messages=False,
+        can_send_messages=False,
+        can_send_other_messages=False,
+        can_send_polls=False
+    )
+    bot.reply_to(m,f"کاربر {m.chat.id,m.reply_to_message.from_user.id} در حالت سکوت قرار گرفت")
+#-------------------------------------------------------------------------
+@bot.message_handler(func=lambda m:m.text=="حذف سکوت")
+def derestrict(m):
+    bot.restrict_chat_member(
+        m.chat.id,
+        m.reply_to_message.from_user.id,
+        can_add_web_page_previews=True,
+        can_change_info=True,
+        can_invite_users=True,
+        can_pin_messages=True,
+        can_send_media_messages=True,
+        can_send_messages=True,
+        can_send_other_messages=True,
+        can_send_polls=True
+    )
+    bot.reply_to(m,f"کاربر {m.chat.id,m.reply_to_message.from_user.id} از لیست سکوت خارج شد")
 
 bot.polling(timeout=120)

@@ -24,10 +24,7 @@ def welcome(message):
     #media.append(p2)
     #media.append(p3)
     #bot.send_media_group(message.chat.id,media=media)
-
-bot.polling(timeout=120)
-
-
+#----------------------------------------------------------------------------------
 def get(m):
     markup=types.ReplyKeyboardMarkup(resize_keyboard=True,row_width=1)
     but=types.KeyboardButton(text='تلفن',request_contact=True)
@@ -39,4 +36,3 @@ def contact(m):
     print(m.contact)
 
 bot.polling(timeout=120)
-
