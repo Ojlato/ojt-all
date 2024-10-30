@@ -3,6 +3,9 @@ import telebot
 bott= "7789371758:AAHxCthTSEzvSCBH92pyp8E-DsW8o34oi9Y"
 bot= telebot.TeleBot(bott)
 #-------------------------------------------------------------------------
+
+#bot.polling()
+#-------------------------------------------------------------------------
 @bot.message_handler(content_types=['new_chat_members'])
 def welcome(m):
     bot.reply_to(m,f"کاربر {m.from_user.first_name}\n به گروه خوش آمدید")
@@ -88,6 +91,27 @@ def restrict(m):
         can_send_polls=False
     )
     bot.reply_to(m,f"کاربر {m.chat.id,m.reply_to_message.from_user.id} در حالت سکوت قرار گرفت")
+#-------------------------------------------------------------------------
+import datetime
+@bot.message_handler(func=lambda m:m.text.startswith("سکوت"))
+def mute(m):
+    duration=int(m.text.split()[-1])
+    date=datetime.datetime.now()+datetime.timedelta(minutes=duration)
+    until_date=datetime.datetime.timestamp(date)
+    bot.restrict_chat_member(
+        m.chat.id,
+        m.reply_to_message.from_user.id,
+        until_date=until_date,
+        can_add_web_page_previews=False,
+        can_change_info=False,
+        can_invite_users=False,
+        can_pin_messages=False,
+        can_send_media_messages=False,
+        can_send_messages=False,
+        can_send_other_messages=False,
+        can_send_polls=False
+    )
+    bot.reply_to(m,f"کاربر {m.chat.id,m.reply_to_message.from_user.id} به مدت {duration} دقیقه در حالت سکوت قرار گرفت")
 #-------------------------------------------------------------------------
 @bot.message_handler(func=lambda m:m.text=="حذف سکوت")
 def derestrict(m):
