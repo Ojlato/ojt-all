@@ -3,6 +3,9 @@ import telebot
 bott= "7789371758:AAHxCthTSEzvSCBH92pyp8E-DsW8o34oi9Y"
 bot= telebot.TeleBot(bott)
 #-------------------------------------------------------------------------
+@bot.message_handler(commands=['link'])
+def get(m):
+   link=bot.create_chat_invite_link(m.chat.id)
 
 #bot.polling()
 #-------------------------------------------------------------------------
@@ -70,6 +73,19 @@ def dele(m):
 def ban(m):
     bot.ban_chat_member(m.chat.id,m.reply_to_message.from_user.id)
     bot.reply_to(m,f"کاربر {m.chat.id,m.reply_to_message.from_user.id} بن شد!")
+#-------------------------------------------------------------------------
+import datetime
+@bot.message_handler(func=lambda m:m.text.startswith("ban"))
+def ban2(m):
+    duration=int(m.text.split()[-1])
+    date=datetime.datetime.now()+datetime.timedelta(minutes=duration)
+    until_date=datetime.datetime.timestamp(date)
+    bot.ban_chat_member(
+        m.chat.id,
+        m.reply_to_message.from_user.id,
+        until_date=until_date
+    )
+    bot.reply_to(m,f"کاربر {m.chat.id,m.reply_to_message.from_user.id} به مدت {duration} دقیقه بن شد!")
 #-------------------------------------------------------------------------
 @bot.message_handler(func=lambda m:m.text=="حذف بن")
 def unban(m):

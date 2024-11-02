@@ -22,8 +22,3 @@ def start(m):
     bot.send_message(m.chat.id,text6,parse_mode="MarkdownV2",disable_web_page_preview=True)
 
 bot.polling()
-
-
-
-
-
