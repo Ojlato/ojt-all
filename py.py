@@ -2,7 +2,7 @@ import telebot
 import time
 from telebot import types
 #-------------------------------------------------------------------------
-bott= "7789371758:AAHxCthTSEzvSCBH92pyp8E-DsW8o34oi9Y"
+bott= "7789371758:AAEv9TgWBsUGhAMDvXhsKaWuqJhBTw1I1Uw"
 bot= telebot.TeleBot(bott)
 #-------------------------------------------------------------------------
 fp=open("C:/Users/POURALI PC CENTER/Downloads/R (1).jpg",'rb')

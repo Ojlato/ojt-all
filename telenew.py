@@ -1,7 +1,7 @@
 import telebot # type: ignore
 ##import requests # type: ignore
 
-bot= telebot.TeleBot("7789371758:AAHxCthTSEzvSCBH92pyp8E-DsW8o34oi9Y")
+bot= telebot.TeleBot("7789371758:AAEv9TgWBsUGhAMDvXhsKaWuqJhBTw1I1Uw")
 
 fi=telebot.types.InlineKeyboardButton("button 1", url="https://roocket.ir")
 tw=telebot.types.InlineKeyboardButton("button 2", callback_data="Hi")

@@ -1,6 +1,6 @@
 import telebot
 #-------------------------------------------------------------------------
-bott= "7789371758:AAHxCthTSEzvSCBH92pyp8E-DsW8o34oi9Y"
+bott= "7789371758:AAEv9TgWBsUGhAMDvXhsKaWuqJhBTw1I1Uw"
 bot= telebot.TeleBot(bott)
 #-------------------------------------------------------------------------
 import time
