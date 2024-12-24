@@ -1,0 +1,47 @@
+h2{
+    font-size: medium;
+    font-style: oblique; 
+    font-family: Castellar;
+    color: brown;
+}
+h1{
+    color:seagreen;
+    font-size: xx-large;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body{
+    background-color: cadetblue;
+    /* background-image: url(New\ folder/2.png); */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position:center 50%;
+}
+p{
+    color: white;
+    font-size: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+}
+#test{
+    color: blue;
+}
+.test{
+    background: salmon;
+}
+h3,h4{
+    color: chartreuse;
+    background: grey;
+}
+#i{
+    font-family: Blackadder ITC;
+}
+.i{
+    font-family: Algerian;
+    color: #000;
+}
+div{
+    width: 100%;
+    height: 200px;
+    /* background-color: red; */
+    display: inline-block;
+}
