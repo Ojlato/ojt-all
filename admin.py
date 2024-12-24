@@ -1,15 +1,15 @@
 import telebot
-import mysql.connector
+#import mysql.connector
 #-------------------------------------------------------------------------
 bott= "7789371758:AAEv9TgWBsUGhAMDvXhsKaWuqJhBTw1I1Uw"
 bot= telebot.TeleBot(bott)
-cnx=mysql.connector.connect(
-    host='195.211.44.192',
-    database='چابکان',
-    user='rocky',
-    password='yh7WsVf1EXavQHm',
-    port=22
-)
+#cnx=mysql.connector.connect(
+#    host='195.211.44.192',
+#    database='چابکان',
+#    user='rocky',
+#    password='yh7WsVf1EXavQHm',
+#    port=22
+#)
 #-------------------------------------------------------------------------
 @bot.message_handler(commands=['link'])
 def get(m):
