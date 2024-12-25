@@ -25,8 +25,15 @@ def count(z):
 def count2(j):
     if j == 0:
         return
-    count2(j+1)
     print(j)
+    count2(j-1)
+
+"یک نوع بازی عددی به روش بازگشتی"
+def fun(x,y):
+    if (x<2 or y<4):
+        return 2
+    else:
+        return 4+fun(x-2,y-3)
 
 "به روش قدیمی a,n مجموع اعداد"
 def sam(a):
@@ -97,6 +104,7 @@ def search(h="عددي که بايد دنبالش بگردم:" ,primenum="اتا
         return search(h,primenum,a,k-1)
     if h>primenum[k]:
         return search(h,primenum,k+1,b)
+#----------------------------------------------------------
 primenum=[2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97]
 
 "وصل کردن دوتا لیست و مرتب کردنشان"
@@ -138,8 +146,8 @@ def Merg(L1,L2):
     while j < len(L2):
         L.append(L2[j])  
         j=j+1
-    return  L
-#----------------------------------------------------------
+    return L
+#--------------------------
 def sort(L):
     if len(L)==1:
         return L
@@ -155,7 +163,7 @@ L=[9,6,5,2,81,11,3,7,8,20,10]
 L=sort(L)
 #print(L)
 
-"مرتب سازی لیست نامرتب به روش بازگشتی"
+"مرتب سازی لیست نامرتب به روش بازگشتی و انتخابی"
 def selsort(l):
     end=len(l)
     for i in range(end):
@@ -172,6 +180,47 @@ l=[30,25,15,10,50,45,5,35]
 selsort(l)
 print('--------------------------')
 print(l)
+
+"(2)مرتب سازی لیست نامرتب به روش بازگشتی و انتخابی"
+def selectionsort(L,start):
+    if start==len(L)-1:
+        return
+    k=L.index(min(L[start:]))
+    L[start],L[k]=L[k],L[start]
+    selectionsort(L,start+1)
+#----------------------------------------------------------
+L=[3,5,8,12,8,6,2,9]
+selectionsort(L,0)
+print(L)
+
+"مرتب سازی لیست نامرتب به روش بازگشتی و درجی"
+def insertionsort(L):
+    for i in range(1,len(L)):
+        j= i
+        while j>0 and L[j-1]>L[j]:
+            L[j-1],L[j]=L[j],L[j-1]
+            j=j-1
+            print(L)
+#----------------------------------------------------------
+L=[3,5,8,12,8,6,2,9]
+insertionsort(L)
+print("#--------------------------")
+print(L)
+
+"مرتب سازی لیست نامرتب به روش بازگشتی و سریع"
+def partion(L,low,high):
+    k=low-1
+    for i in range(low,high):
+        if L[i]<L[high]:
+            k=k+1
+            L[i],L[k]=L[k],L[i]
+            
+def QuickSort(L,low,high):
+    if high-low==0:
+        return 
+    m=partion(L,low,high)
+    QuickSort(L,low,m)
+    QuickSort(L,m+1,high)
 
 "خرد کرد پول به روش قدیمی"
 print("به چند روش میتوان مبلغ دریافتی شمارا با کمک اسکناس های 50هزار تومانی، 10هزار تومانی و 5هزار تومانی خرد کرد?")
@@ -203,5 +252,5 @@ def seke(n="عدد درخواستي",a="50",b="25",c="10"):
 s=set()
 #seke(100,0,0,0)
 #print(s)
-#print("_________________")
+#print("--------------------------")
 #print(len(s))
