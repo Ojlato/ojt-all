@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/HTML/2.png">
+  <title>بازی آموزش جدول ضرب</title>
+  <style>
+    body {
+      font-family: Tahoma, sans-serif;
+      background: #f2f2f2;
+      text-align: center;
+      margin: 0;
+      padding: 10px;
+      direction: rtl;
+    }
+    h1, h2,h3 {
+      color: #333;
+    }
+    /* بخش صفحه بازی */
+    #gameBoardContainer {
+      margin: 10px auto;
+      max-width: 520px;
+      width: 100%;
+    }
+    #gameBoard {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 2px;
+      background: #444;
+      padding: 2px;
+    }
+    .board-cell {
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 10px;
+      min-height: 20px;
+      font-size: 14px;
+      position: relative;
+      user-select: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .board-cell:hover {
+      background: #def;
+    }
+    .active {
+      background: #ffeb3b;
+    }
+    /* بخش تاس */
+    #diceSection {
+      margin-top: 20px;
+    }
+    .dice {
+      display: inline-block;
+      margin: 5px;
+      font-size: 24px;
+      font-weight: bold;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      background: #fff;
+      border: 2px solid #333;
+      border-radius: 8px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 10px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background: #4c98af;
+      color: white;
+    }
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    /* بخش سوال حاصل ضرب */
+    #multiplicationSection {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    /* پیام‌های نتیجه */
+    #message {
+      margin-top: 20px;
+      font-size: 18px;
+      color: green;
+    }
+    /* استایل موبایل */
+    @media (max-width: 600px) {
+      .board-cell {
+        padding: 5px;
+        min-height: 30px;
+        font-size: 12px;
+      }
+      .dice {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 20px;
+      }
+      button {
+        font-size: 14px;
+        padding: 8px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h3>بازی آموزش جدول ضرب</h3>
+
+  <!-- بخش صفحه بازی -->
+  <div id="gameBoardContainer">
+    <div id="gameBoard"></div>
+  </div>
+
+  <!-- بخش تاس -->
+  <div id="diceSection">
+    <button id="rollDiceBtn">تاس بنداز</button>
+    <div id="diceDisplay">
+      <span class="dice" id="dice1">؟</span>
+      <span class="dice" id="dice2">؟</span>
+    </div>
+  </div>
+
+  <!-- پیام‌ها -->
+  <div id="message"></div>
+  <!-- بخش سوال حاصل ضرب -->
+  <div id="multiplicationSection">
+    <div id="multiplicationQuestion">برای شروع بازی، تاس بندازید.</div>
+  </div>
+
+
+  <script>
+    // تابع تبدیل اعداد انگلیسی به فارسی
+    function toPersianDigits(input) {
+      return String(input).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+    }
+
+    // متغیرهای سراسری بازی
+    let currentPosition = 0; // مهره از خانه 0 شروع می‌شود
+    let dice1 = 0, dice2 = 0;
+    let correctProduct = 0;
+    let canAnswer = false; // کنترل وضعیت پاسخ‌دهی
+
+    // ایجاد صفحه بازی (تابلوی ۱۰۰ خانه)
+    const gameBoard = document.getElementById('gameBoard');
+    for (let i = 1; i <= 100; i++) {
+      const cell = document.createElement('div');
+      cell.className = 'board-cell';
+      cell.id = 'cell-' + i;
+      cell.setAttribute('data-value', i);
+      cell.innerText = toPersianDigits(i);
+      // افزودن رویداد کلیک برای انتخاب پاسخ
+      cell.addEventListener('click', function() {
+        if (!canAnswer) return;
+        const cellValue = parseInt(this.getAttribute('data-value'));
+        checkAnswer(cellValue);
+      });
+      gameBoard.appendChild(cell);
+    }
+
+    // به‌روزرسانی نمایش مهره در صفحه بازی
+    function updateBoard() {
+      for (let i = 1; i <= 100; i++) {
+        document.getElementById('cell-' + i).classList.remove('active');
+      }
+      if (currentPosition > 0 && currentPosition <= 100) {
+        const currentCell = document.getElementById('cell-' + currentPosition);
+        if (currentCell) {
+          currentCell.classList.add('active');
+        }
+      }
+    }
+
+    // رویداد دکمه "تاس بنداز"
+    document.getElementById('rollDiceBtn').addEventListener('click', rollDice);
+
+    // تابع شبیه‌سازی انداختن تاس (اعداد از 1 تا 10)
+    function rollDice() {
+      dice1 = Math.floor(Math.random() * 10) + 1;
+      dice2 = Math.floor(Math.random() * 10) + 1;
+      document.getElementById('dice1').innerText = toPersianDigits(dice1);
+      document.getElementById('dice2').innerText = toPersianDigits(dice2);
+
+      correctProduct = dice1 * dice2;
+      document.getElementById('multiplicationQuestion').innerText =
+        'حاصل ضرب ' + toPersianDigits(dice1) + ' و ' + toPersianDigits(dice2) + ' چیست؟';
+      document.getElementById('message').innerText = '';
+      canAnswer = true;
+    }
+
+    // تابع بررسی پاسخ انتخاب شده توسط کاربر (از روی صفحه بازی)
+    function checkAnswer(answer) {
+      if (!canAnswer) return;
+      if (answer === correctProduct) {
+        canAnswer = false;
+        const moveSteps = dice1 + dice2;
+        currentPosition += moveSteps;
+        if (currentPosition >= 100) {
+          currentPosition = 100;
+          updateBoard();
+          document.getElementById('multiplicationQuestion').innerText = 'پایان بازی!';
+          document.getElementById('message').innerText = 'تبریک! شما برنده شدید!';
+          document.getElementById('rollDiceBtn').disabled = true;
+        } else {
+          updateBoard();
+          document.getElementById('message').innerText =
+            'آفرین! مهره به اندازه ' + toPersianDigits(moveSteps) + ' خانه حرکت کرد.';
+        }
+      } else {
+        document.getElementById('message').innerText = 'اشتباه است! دوباره تلاش کن.';
+      }
+    }
+
+    // به‌روزرسانی اولیه صفحه بازی
+    updateBoard();
+  </script>
+<!-- <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"90cb9c6debc51ca3","version":"2025.1.0","r":1,"token":"ebdf2d464e9b4bc485536ab41b27c1de","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}' crossorigin="anonymous"></script> -->
+</body>
+</html>
