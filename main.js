@@ -181,3 +181,57 @@ for(let j=1; j<15; j++) {
     }
     (j);
 }
+const friends=["Sadeq","Qasem","Mostafa","Mohammad","Omid"]
+function me() {
+    for (const item of friends) {
+    var node=document.createElement("li");
+    var textnode=document.createTextNode(item);
+    node.appendChild(textnode);
+    document.getElementById("1").appendChild(node)
+    }
+};me();
+const DIV=document.getElementById("demo");
+DIV.onmouseover=function() {
+    DIV.style.backgroundColor="chartreuse";
+};DIV.onmouseout=function() {
+    DIV.style.backgroundColor="goldenrod";
+};
+const element=document.getElementById("btn");
+element.addEventListener('click',function() {
+    document.getElementById("po").innerHTML=Date();
+}); //display
+// function display() {
+//     document.getElementById("po").innerHTML=Date();};
+const e_btn=document.getElementById("btn2")
+e_btn.addEventListener('click',f);
+e_btn.addEventListener('click',f2)
+function f() {
+    alert("First Function Happend");
+};function f2() {
+    alert("second Function Happend");
+};
+let n1=8;
+let n2=3;
+const el=document.getElementById("btn2");
+el.addEventListener('click',function() {
+    func(n1,n2)
+});
+function func(a,b) {
+    document.getElementById("pi").innerHTML="8x3="+a*b
+};const g=document.getElementById("Dv");
+g.addEventListener('click',function() {
+    alert("You Clicked on Tag Div")
+})//,true);
+const h=document.getElementById("Pi");
+h.addEventListener('click',function() {
+    alert("You Clicked on Tag P")
+})//,true);
+const bt=document.getElementById("btnR");
+bt.addEventListener('click',del)
+function del() {
+    g.removeEventListener('mousemove',random);
+};
+
+g.addEventListener('mousemove',random);
+function random() {
+    document.getElementById("Dv").innerHTML=Math.random();}
