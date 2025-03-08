@@ -15,12 +15,13 @@
 //     (name); 
 // };project("Walter White")
 
-const say=(something) => {
-    (something);
-};say("Hello")
+// const say=(something) => {
+//     (something);
+// };say("Hello")
 
-const axios=require("axios")
-async function fetchdata() {
-    const response=await axios.get('https://jsonplaceholder.typicode.com/todos/1');
+const axios= require("axios")
+function fetchdata() {
+    const response=axios.get('https://jsonplaceholder.typicode.com/todos/1');
     console.log(response);
 }fetchdata();
+say();
